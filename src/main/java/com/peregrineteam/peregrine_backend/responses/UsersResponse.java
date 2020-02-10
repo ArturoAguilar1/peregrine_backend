@@ -15,6 +15,18 @@ public class UsersResponse {
         public String phone;
         public String access;
         public String country_id;
+        public ArrayList<Location> locations;
+    }
+
+    public static class Location {
+        public long id;
+        public String address;
+        public String floor;
+        public String extra_info;
+        public Long zip_code;
+        public String country_id;
+        public long user_id;
+        public boolean is_default;
     }
 }
 

@@ -25,7 +25,11 @@ public class Main extends AbstractVerticle {
 
         router.route().handler(BodyHandler.create());
         router.get("/api/users").handler(Users::getUsers);
-        router.get("/api/users/:id").handler(Users::getUserById);
+        router.post("/api/users").handler(Users::createUser);
+        router.get("/api/users/:userId").handler(Users::getUserById);
+
+        router.get("/api/users/:userId/locations").handler(Users::getLocations);
+        router.post("/api/users/:userId/locations").handler(Users::createLocation);
 
         server.requestHandler(router).listen(3000, ar ->
                 System.out.println("Server running on port "+ ar.result().actualPort()));
