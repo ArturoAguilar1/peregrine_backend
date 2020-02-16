@@ -1,22 +1,19 @@
 package com.peregrineteam.peregrine_backend.database;
 
-import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonArray;
+import io.vertx.reactivex.core.Vertx;
+import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgPool;
+import io.vertx.reactivex.ext.mongo.MongoClient;
 import io.vertx.sqlclient.PoolOptions;
 
 public class Database {
-    public static PgPool initializeDb(Vertx vertx) {
-        PgConnectOptions connectOptions = new PgConnectOptions()
-                .setPort(5432)
-                .setHost("peregrine-db-demo.cdk0dshceixr.us-east-2.rds.amazonaws.com")
-                .setDatabase("peregrine")
-                .setUser("postgres")
-                .setPassword("Ines1234");
+    public static MongoClient initializeDb(Vertx vertx) {
+        JsonObject config = new JsonObject();
+        config.put("connection_string", "mongodb+srv://peregrine:Ines123@peregrinedb-bl4av.mongodb.net/peregrine");
+        config.put("mongo_name", "peregrine");
 
-        PoolOptions poolOptions = new PoolOptions()
-                .setMaxSize(5);
-
-        return PgPool.pool(vertx, connectOptions, poolOptions);
+        return MongoClient.createShared(vertx, config);
     }
 }
